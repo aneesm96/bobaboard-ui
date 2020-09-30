@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 import { faCertificate } from "@fortawesome/free-solid-svg-icons";
 import classnames from "classnames";
-import Theme from './Theme';
+// import Theme from '../theme/button-theme';
 // import DefaultTheme from
-const DefaultTheme = Theme;
+// const DefaultTheme = Theme;
 
 import THEME_NEW from '../theme/button-theme';
 
-import React, {useEffect, useState} from "react";
+import React from "react";
 // @ts-ignore
 import { Button as LibraryButton } from "@trendmicro/react-buttons";
 import Tooltip from "./Tooltip";
@@ -35,7 +35,7 @@ export enum ButtonStyle {
 const ChooseTheme = (theme: string) :TH => {
   let th = theme.toLowerCase();
   let selectedTheme :TH;
-  switch (theme) {
+  switch (th) {
     case 'dark':
       selectedTheme = {
           BORDER : THEME_NEW.BTN_BORDER || "1px solid white",
@@ -71,12 +71,21 @@ const ChooseTheme = (theme: string) :TH => {
       break;
   
     default:
+      selectedTheme = {
+        BORDER : THEME_NEW.BTN_BORDER || "1px solid white",
+        BG_COLOR: THEME_NEW.BTN_NPRIMARY_BG_COLOR,
+        COLOR: THEME_NEW.BTN_PRIMARYL_COLOR,
+        
+        COLOR_HOVER: THEME_NEW.BTN_PRIMARY_HOVER_COLOR,
+        BG_COLOR_HOVER: THEME_NEW.BTN_PRIMARY_HOVER_BG_COLOR
+      }
       break;
   }
 
   return selectedTheme; 
 }
 
+/*
 const getThemeColor = (style: string | undefined) => {
   switch (style) {
     case ButtonStyle.TRANSPARENT:
@@ -88,7 +97,9 @@ const getThemeColor = (style: string | undefined) => {
       return DefaultTheme.BUTTON_BACKGROUND_COLOR_LIGHT;
   }
 };
+*/
 
+/*
 const getReverseThemeColor = (style: string | undefined) => {
   switch (style) {
     case ButtonStyle.TRANSPARENT:
@@ -100,7 +111,7 @@ const getReverseThemeColor = (style: string | undefined) => {
       return DefaultTheme.BUTTON_ACCENT_COLOR_LIGHT;
   }
 };
-
+*/
 const BoButton: React.FC<ButtonProps> = ({
   onClick,
   icon,
@@ -114,8 +125,8 @@ const BoButton: React.FC<ButtonProps> = ({
   imageUrl,
 }) => {
   const [tooltipOpen, setTooltipOpen] = React.useState(false);
-  const THEME_COLOR = getThemeColor(theme);
-  const REVERSE_THEME_COLOR = getReverseThemeColor(theme);
+  // const THEME_COLOR = getThemeColor(theme);
+  // const REVERSE_THEME_COLOR = getReverseThemeColor(theme);
   const transparent = ButtonStyle.TRANSPARENT == theme;
   const SelectedTheme = ChooseTheme(theme);
   // const [SelectedTheme, setSelectedTheme] = useState(null)
@@ -217,7 +228,7 @@ const BoButton: React.FC<ButtonProps> = ({
           margin-right: 0px;
         }
         .updates {
-          background-color: ${color || REVERSE_THEME_COLOR};
+          background-color: ${color || 'green'};
           position: absolute;
           border-radius: 50%;
           width: 20px;
@@ -225,7 +236,7 @@ const BoButton: React.FC<ButtonProps> = ({
           right: -5px;
           top: -5px;
           text-align: center;
-          color: ${transparent ? "white" : THEME_COLOR};
+          color: ${transparent ? "white" : ''};
           font-size: 14px;
           line-height: 20px;
           font-weight: bold;
@@ -239,7 +250,7 @@ const BoButton: React.FC<ButtonProps> = ({
         }
         .compact .icon {
           margin-right: 0px;
-          color: ${color || REVERSE_THEME_COLOR};
+          color: ${color || 'white'};
         }
       `}</style>
     </>

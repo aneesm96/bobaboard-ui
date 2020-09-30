@@ -13,7 +13,7 @@ export enum DropdownStyle {
 
 export interface DropdownProps {
   children: JSX.Element;
-  position: "left" | "right" | "top" | "bottom";
+  position?: "left" | "right" | "top" | "bottom";
   options?: {
     name: string;
     icon?: IconDefinition;

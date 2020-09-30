@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 import classnames from "classnames";
 
@@ -26,10 +26,10 @@ const Input: React.FC<InputProps> = (props) => {
   
   const [focused, setFocused] = React.useState(false);
 
-  const THEME_COLOR = props.theme == InputStyle.DARK ? "#1c1c1c" : "#fff";
+  // const THEME_COLOR = props.theme == InputStyle.DARK ? "#1c1c1c" : "#fff";
 
-  const REVERSE_THEME_COLOR =
-  props.theme == InputStyle.DARK ? "#fff" : "#1c1c1c";
+  // const REVERSE_THEME_COLOR =
+  // props.theme == InputStyle.DARK ? "#fff" : "#1c1c1c";
   const onChangeHandler = (event: any) => {
     if(props.max && props.max > 0) {
       if(props.value.length < props.max) {

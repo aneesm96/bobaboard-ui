@@ -2,7 +2,6 @@ import React from "react";
 
 import LibraryPopover, {
   PopoverProps as LibraryPopoverProps,
-  ArrowContainer,
 } from "react-tiny-popover";
 import Theme from "../theme/default";
 
