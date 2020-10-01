@@ -1,9 +1,10 @@
 
-// import "@trendmicro/react-buttons/dist/react-buttons.css";
+import "@trendmicro/react-buttons/dist/react-buttons.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 import { faCertificate } from "@fortawesome/free-solid-svg-icons";
 import classnames from "classnames";
+
 // import Theme from '../theme/button-theme';
 // import DefaultTheme from
 // const DefaultTheme = Theme;
@@ -16,7 +17,7 @@ import { Button as LibraryButton } from "@trendmicro/react-buttons";
 import Tooltip from "./Tooltip";
 
 
-interface TH {
+interface ThemeProps {
   BORDER : string,
   BG_COLOR: string,
   COLOR: string,
@@ -29,15 +30,14 @@ interface TH {
 export enum ButtonStyle {
   LIGHT = "LIGHT",
   DARK = "DARK",
-  TRANSPARENT = "TRANSPARENT",
+  ANCENT = "ANCENT",
 }
 
-const ChooseTheme = (theme: string) :TH => {
-  let th = theme.toLowerCase();
-  let selectedTheme :TH;
-  switch (th) {
-    case 'dark':
-      selectedTheme = {
+const getTheme = (theme: ButtonStyle) :ThemeProps => {
+  // let th = theme.toLowerCase();
+  switch (theme) {
+    case ButtonStyle.DARK:
+      return {
           BORDER : THEME_NEW.BTN_BORDER || "1px solid white",
           BG_COLOR: THEME_NEW.BTN_DARK_BG_COLOR,
           COLOR: THEME_NEW.BTN_DARK_COLOR,
@@ -45,10 +45,9 @@ const ChooseTheme = (theme: string) :TH => {
           COLOR_HOVER: THEME_NEW.BTN_DARK_HOVER_COLOR,
           BG_COLOR_HOVER: THEME_NEW.BTN_DARK_HOVER_BG_COLOR
       }
-      break;
 
-      case 'primary' :
-        selectedTheme = {
+      case ButtonStyle.LIGHT :
+        return {
           BORDER : THEME_NEW.BTN_BORDER || "1px solid white",
           BG_COLOR: THEME_NEW.BTN_NPRIMARY_BG_COLOR,
           COLOR: THEME_NEW.BTN_PRIMARYL_COLOR,
@@ -57,9 +56,8 @@ const ChooseTheme = (theme: string) :TH => {
           BG_COLOR_HOVER: THEME_NEW.BTN_PRIMARY_HOVER_BG_COLOR
         }
 
-      break;
-      case 'ancent' :
-        selectedTheme = {
+      case ButtonStyle.ANCENT :
+        return {
           BORDER : THEME_NEW.BTN_BORDER || "1px solid white",
           BG_COLOR: THEME_NEW.BTN_ANCENT_BG_COLOR,
           COLOR: THEME_NEW.BTN_ANCENT_COLOR,
@@ -68,10 +66,8 @@ const ChooseTheme = (theme: string) :TH => {
           BG_COLOR_HOVER: THEME_NEW.BTN_ANCENT_BG_COLOR_HOVER
         }
 
-      break;
-  
     default:
-      selectedTheme = {
+      return {
         BORDER : THEME_NEW.BTN_BORDER || "1px solid white",
         BG_COLOR: THEME_NEW.BTN_NPRIMARY_BG_COLOR,
         COLOR: THEME_NEW.BTN_PRIMARYL_COLOR,
@@ -79,40 +75,11 @@ const ChooseTheme = (theme: string) :TH => {
         COLOR_HOVER: THEME_NEW.BTN_PRIMARY_HOVER_COLOR,
         BG_COLOR_HOVER: THEME_NEW.BTN_PRIMARY_HOVER_BG_COLOR
       }
-      break;
   }
-
-  return selectedTheme; 
 }
 
-/*
-const getThemeColor = (style: string | undefined) => {
-  switch (style) {
-    case ButtonStyle.TRANSPARENT:
-      return "transparent";
-    case ButtonStyle.DARK:
-      return DefaultTheme.BUTTON_BACKGROUND_COLOR_DARK;
-    default:
-    case ButtonStyle.LIGHT:
-      return DefaultTheme.BUTTON_BACKGROUND_COLOR_LIGHT;
-  }
-};
-*/
 
-/*
-const getReverseThemeColor = (style: string | undefined) => {
-  switch (style) {
-    case ButtonStyle.TRANSPARENT:
-      return "#1c1c1c";
-    case ButtonStyle.DARK:
-      return DefaultTheme.BUTTON_ACCENT_COLOR_DARK;
-    default:
-    case ButtonStyle.LIGHT:
-      return DefaultTheme.BUTTON_ACCENT_COLOR_LIGHT;
-  }
-};
-*/
-const BoButton: React.FC<ButtonProps> = ({
+const Button: React.FC<ButtonProps> = ({
   onClick,
   icon,
   children,
@@ -125,18 +92,9 @@ const BoButton: React.FC<ButtonProps> = ({
   imageUrl,
 }) => {
   const [tooltipOpen, setTooltipOpen] = React.useState(false);
-  // const THEME_COLOR = getThemeColor(theme);
-  // const REVERSE_THEME_COLOR = getReverseThemeColor(theme);
   const transparent = ButtonStyle.TRANSPARENT == theme;
-  const SelectedTheme = ChooseTheme(theme);
-  // const [SelectedTheme, setSelectedTheme] = useState(null)
+  const SelectedTheme = getTheme(theme);
 
-  
-  
-  // useEffect(() => {
-  //   let th = ChooseTheme('DARK');
-  //   setSelectedTheme(th);
-  // }, [])
 
   return (
     <>
@@ -170,10 +128,15 @@ const BoButton: React.FC<ButtonProps> = ({
         </div>
       </Tooltip>
       <style jsx>{`
-        .button {
+        .btn--none {
+          border: 0px;
+          outline: 0;
+          
+        }
+        .custom-button {
           display: inline-block;
           position: relative;
-          padding: 8px 12px;
+          // padding: 8px 12px;
           line-height: 115%;
         }
         .button > :global(button) {
@@ -182,12 +145,15 @@ const BoButton: React.FC<ButtonProps> = ({
           border: 1px solid ${SelectedTheme.COLOR};
           color: ${SelectedTheme.COLOR};
           background-color: ${SelectedTheme.BG_COLOR};
+          padding: 8px 12px;
+          line-height:115%;
         }
 
         .button:not(.disabled) > :global(button):hover {
           background-color: ${SelectedTheme.BG_COLOR_HOVER};
           border: 1px solid ${SelectedTheme.BG_COLOR_HOVER};
           color: ${SelectedTheme.COLOR_HOVER};
+          cursor: pointer;
         }
 
         .button:not(.disabled) > :global(button):active:focus {
@@ -228,7 +194,7 @@ const BoButton: React.FC<ButtonProps> = ({
           margin-right: 0px;
         }
         .updates {
-          background-color: ${color || 'green'};
+          background-color: ${color || 'blue'};
           position: absolute;
           border-radius: 50%;
           width: 20px;
@@ -257,7 +223,7 @@ const BoButton: React.FC<ButtonProps> = ({
   );
 };
 
-export default BoButton;
+export default Button;
 
 export interface ButtonProps {
   children: string | JSX.Element;
@@ -272,5 +238,3 @@ export interface ButtonProps {
   updates?: number | boolean;
   badge?: number
 }
-
-

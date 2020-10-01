@@ -40,6 +40,17 @@ export const Editable = () => {
           onTextChange={(text) => setText(text)}
           theme={InputStyle.DARK}
           color="#f96680"
+          maxLength={250}
+        />
+        <Input
+          id="test1"
+          value={text}
+          label="A text input"
+          onTextChange={(text) => setText(text)}
+          theme={InputStyle.DARK}
+          helperText={"some helping text"}
+          color="#f96680"
+          maxLength={250}
         />
       </div>
     </>

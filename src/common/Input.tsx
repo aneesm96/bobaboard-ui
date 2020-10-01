@@ -18,7 +18,7 @@ export interface InputProps {
   color?: string;
   password?: boolean;
   helperText?:string;
-  max ? :number;
+  maxLength? :number;
   type?: string; 
 }
 
@@ -31,17 +31,23 @@ const Input: React.FC<InputProps> = (props) => {
   // const REVERSE_THEME_COLOR =
   // props.theme == InputStyle.DARK ? "#fff" : "#1c1c1c";
   const onChangeHandler = (event: any) => {
-    if(props.max && props.max > 0) {
-      if(props.value.length < props.max) {
+
+    if (!props.maxLength) {
+      props.onTextChange(event.target.value);
+      return ;
+    }
+
+    // if (props.max && props.max > 0) {
+      if (props.value.length < props.maxLength) {
         props.onTextChange(event.target.value);
         return;
       } else {
-        let val = event.target.value.slice(0, props.max);
+        let val = event.target.value.slice(0, props.maxLength);
         props.onTextChange(val);
       }
-    } else {
-      props.onTextChange(event.target.value);
-    }    
+    // } else {
+      
+    // }    
   }
 
 
@@ -105,8 +111,8 @@ const Input: React.FC<InputProps> = (props) => {
         : props.helperText ? <div className="helper--text">{props.helperText}</div> : ""
       }
       {
-        props.max && (
-        <div className="counter">{props.value.length + "/" +props.max}</div>
+        props.maxLength && (
+        <div className="counter">{props.value.length + "/" +props.maxLength}</div>
         )
       }
       
@@ -132,18 +138,20 @@ const Input: React.FC<InputProps> = (props) => {
           font-size: 14px;
           color: #3db790;
           margin-top:10px;
+          display: inline-block;
         }
         .input .error--text {
           font-size: 14px;
           color: #ff0000;
           margin-top:10px;
+          display: inline-block;
         }
 
         .counter {
-          position: absolute;
-          right: 0;
-          bottom: 0;
+          float: right;
           color: white;
+          display: inline-block;
+          margin-top: 10px;
         }
 
         .input.empty .label {

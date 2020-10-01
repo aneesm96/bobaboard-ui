@@ -1,10 +1,7 @@
 import React from "react";
 import DropdownListMenu from "../src/common/DropdownListMenu";
-import Button from "../src/common/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { action } from "@storybook/addon-actions";
-
 export default {
   title: "Popup Preview",
   component: DropdownListMenu,
@@ -12,25 +9,47 @@ export default {
 
 export const ClassicDropdownStory = () => {
   return (
-    <div style={{ width: "500px", backgroundColor: "white", padding: "15px" }}>
+    <div style={{ width: "500px", height: "500px", backgroundColor: "white", padding: "15px" }}>
       <DropdownListMenu
-        options={[
-          {
-            name: "no href",
-            link: {
-              onClick: action("noHrefClick"),
+        position="bottom left"
+          options={[
+            {
+              name: "no href",
+              link: {
+                onClick: action("noHrefClick"),
+              },
             },
-          },
-          {
-            name: "with href",
-            link: {
-              onClick: action("withHref"),
-              href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            {
+              name: "with href",
+              link: {
+                onClick: action("withHref"),
+                href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+              },
             },
-          },
-        ]}
-      >
-        <Button>Click me!</Button>
+          ]}
+        >
+        <span>bottom left</span>
+      </DropdownListMenu>
+
+      <DropdownListMenu
+        position="bottom right"
+          options={[
+            {
+              name: "no href",
+              link: {
+                onClick: action("noHrefClick"),
+              },
+            },
+            {
+              name: "with href",
+              link: {
+                onClick: action("withHref"),
+                href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+              },
+            },
+          ]}
+        >
+        <span>bottom right</span>
       </DropdownListMenu>
     </div>
   );
@@ -42,8 +61,9 @@ ClassicDropdownStory.story = {
 
 export const IconDropwdownStory = () => {
   return (
-    <div style={{ width: "500px", backgroundColor: "white", padding: "15px" }}>
+    <div style={{ width: "500px", height: "500px", backgroundColor: "white", padding: "15px" }}>
       <DropdownListMenu
+      position="bottom center"
         options={[
           {
             name: "no href",
@@ -60,7 +80,7 @@ export const IconDropwdownStory = () => {
           },
         ]}
       >
-        <FontAwesomeIcon icon={faCaretDown} />
+        {/* <FontAwesomeIcon icon={faCaretDown} /> */}
       </DropdownListMenu>
     </div>
   );
@@ -68,4 +88,38 @@ export const IconDropwdownStory = () => {
 
 IconDropwdownStory.story = {
   name: "icon",
+};
+
+
+export const ItemsIconDropwdownStory = () => {
+  return (
+    <div style={{ width: "500px", height: "500px", backgroundColor: "white", padding: "15px" }}>
+      <DropdownListMenu
+      position="top center"
+        options={[
+          {
+            icon:faUser,
+            name: "no href",
+            link: {
+              onClick: action("noHrefClick"),
+            },
+          },
+          {
+            icon: faUser,
+            name: "with href",
+            link: {
+              onClick: action("withHref"),
+              href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            },
+          },
+        ]}
+      >
+        {/* <FontAwesomeIcon icon={faCaretDown} /> */}
+      </DropdownListMenu>
+    </div>
+  );
+};
+
+ItemsIconDropwdownStory.story = {
+  name: "item with icon",
 };

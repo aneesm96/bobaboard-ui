@@ -42,6 +42,7 @@ const CustomPopover: React.FC<PopoverProps> = (props) => {
       <LibraryPopover
         isOpen={innerIsOpen}
         position={props.position || 'bottom'}
+        align={props.align}
         padding={props.padding || 10}
         onClickOutside={(e) => {
           props.onClickOutside?.(e);

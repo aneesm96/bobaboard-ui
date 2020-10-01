@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import classnames from "classnames";
 import Tooltip from "./CustomToolTip";
 import Theme from "../theme/default";
@@ -6,14 +6,63 @@ import { LinkWithAction } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { Align, Position } from 'react-tiny-popover'
 export enum DropdownStyle {
   LIGHT = "LIGHT",
   DARK = "DARK",
 }
 
+
+
+
+const getAlignedPosition = (arg: any): AlignedPositiDon => {
+  switch (arg) {
+    case "bottom left":
+      return {
+        position: "bottom",
+        align: 'start'
+      }
+      break;
+
+    case "bottom right":
+      return {
+        position: "bottom",
+        align: 'end'
+      }
+
+    case "top left":
+      return {
+        position: "top",
+        align: 'start'
+      }
+
+    case "top right":
+      return {
+        position: "top",
+        align: 'end'
+      }
+
+    case "top center":
+      return {
+        position: "top",
+        align: 'center'
+      }
+
+    default:
+      return {
+        position: "bottom",
+        align: 'center'
+      }
+  }
+}
+interface AlignedPositiDon {
+  position: Position
+  align: Align;
+}
+
 export interface DropdownProps {
   children: JSX.Element;
-  position?: "left" | "right" | "top" | "bottom";
+  position?: "bottom left" | "bottom right" | "top left" | "top right" | "top center" | "bottom center";
   options?: {
     name: string;
     icon?: IconDefinition;
@@ -26,6 +75,11 @@ export interface DropdownProps {
 
 const DropdownMenu: React.FC<DropdownProps> = (props) => {
   const [isOpen, setOpen] = React.useState(false);
+  // const [alignedPosition, setAlignedPosition] = React.useState({ position: "bottom", align: "center" });
+  const alignedPosition = getAlignedPosition(props.position)
+  useEffect(() => {
+    console.log(alignedPosition)
+  }, [])
   if (!props.options) {
     return props.children;
   }
@@ -50,7 +104,8 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
     <>
       <Tooltip
         isOpen={isOpen}
-        position={props.position || "right"}
+        position={alignedPosition.position}
+        align={alignedPosition.align}
         content={
           <div className={"menu"}>
             {props.options.map((option) => (
@@ -78,10 +133,10 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
         accentColor={accentColor}
       >
         <span className="dropdown--content" onClick={() => setOpen(!isOpen)}>
-            <div className="dropdown--title">{props.children}</div> 
-            <FontAwesomeIcon icon={faCaretDown} />
+          <div className="dropdown--title">{props.children}</div>
+          <FontAwesomeIcon icon={faCaretDown} />
         </span>
-        
+
       </Tooltip>
       <style jsx>{`
 
