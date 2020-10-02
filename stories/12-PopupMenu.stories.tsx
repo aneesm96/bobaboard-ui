@@ -1,7 +1,10 @@
 import React from "react";
 import DropdownListMenu from "../src/common/DropdownListMenu";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { action } from "@storybook/addon-actions";
+import Button from '../src/common/Button';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export default {
   title: "Popup Preview",
   component: DropdownListMenu,
@@ -28,7 +31,7 @@ export const ClassicDropdownStory = () => {
             },
           ]}
         >
-        <span>bottom left</span>
+        <Button theme={'dark'}>bottom left</Button>
       </DropdownListMenu>
 
       <DropdownListMenu
@@ -49,7 +52,7 @@ export const ClassicDropdownStory = () => {
             },
           ]}
         >
-        <span>bottom right</span>
+        <Button theme={'dark'}>bottom right</Button>
       </DropdownListMenu>
     </div>
   );
@@ -80,7 +83,7 @@ export const IconDropwdownStory = () => {
           },
         ]}
       >
-        {/* <FontAwesomeIcon icon={faCaretDown} /> */}
+        <FontAwesomeIcon icon={faCaretDown} />
       </DropdownListMenu>
     </div>
   );
@@ -114,7 +117,7 @@ export const ItemsIconDropwdownStory = () => {
           },
         ]}
       >
-        {/* <FontAwesomeIcon icon={faCaretDown} /> */}
+        <FontAwesomeIcon icon={faCaretDown} />
       </DropdownListMenu>
     </div>
   );

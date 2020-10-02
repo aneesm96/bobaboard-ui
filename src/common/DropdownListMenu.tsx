@@ -133,8 +133,9 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
         accentColor={accentColor}
       >
         <span className="dropdown--content" onClick={() => setOpen(!isOpen)}>
-          <div className="dropdown--title">{props.children}</div>
-          <FontAwesomeIcon icon={faCaretDown} />
+          {props.children}
+          {/* <div className="dropdown--title">{props.children}</div> */}
+          {/* <FontAwesomeIcon icon={faCaretDown} /> */}
         </span>
 
       </Tooltip>
@@ -159,10 +160,11 @@ const DropdownMenu: React.FC<DropdownProps> = (props) => {
       
         .dropdown--content {
           display: inline-block;
-            border: 1px solid gray;
+            // border: 1px solid gray;
+            outline: 0;
             padding: .41em 1em;
-            border-radius: 8px;
-            background: white;
+            // border-radius: 8px;
+            // background: white;
             color: black;
             margin-right: 8px;
         }
