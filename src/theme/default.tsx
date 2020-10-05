@@ -52,3 +52,30 @@ export interface ThemeProperties {
   BUTTON_BACKGROUND_COLOR_LIGHT: string;
   BUTTON_BACKGROUND_COLOR_DARK: string;
 }
+
+export const THEME_BUTTON = {
+  
+  BTN_PRIMARY_BORDER: 'white',
+  BTN_PRIMARYL_COLOR: 'black',
+  BTN_NPRIMARY_BG_COLOR: 'white',
+  
+  BTN_PRIMARY_HOVER_BG_COLOR: 'lightgray',
+  BTN_PRIMARY_HOVER_COLOR: 'black',
+  BTN_PRIMARY_HOVER_BORDER_COLOR: 'white',
+  
+  BTN_DARK_BORDER: 'white',
+  BTN_DARK_COLOR: 'white',
+  BTN_DARK_BG_COLOR: 'black',
+  
+  BTN_DARK_HOVER_BG_COLOR: 'gray',
+  BTN_DARK_HOVER_COLOR: 'white',
+  BTN_DARK_HOVER_BORDER_COLOR: 'white',
+ 
+  // not included, once confirmed, will be removed permanently
+  // BTN_ANCENT_COLOR: 'black',
+  // BTN_ANCENT_BG_COLOR: '#ffc700',
+  // BTN_ANCENT_COLOR_HOVER:'black',
+  // BTN_ANCENT_BG_COLOR_HOVER:'#665000',
+}
+
+

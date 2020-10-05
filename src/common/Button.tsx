@@ -9,7 +9,7 @@ import classnames from "classnames";
 // import DefaultTheme from
 // const DefaultTheme = Theme;
 
-import THEME_NEW from '../theme/button-theme';
+import { THEME_BUTTON as THEME_NEW } from '../theme/default';
 
 import React from "react";
 // @ts-ignore
@@ -56,15 +56,17 @@ const getTheme = (theme: ButtonStyle) :ThemeProps => {
           BG_COLOR_HOVER: THEME_NEW.BTN_PRIMARY_HOVER_BG_COLOR
         }
 
-      case ButtonStyle.ANCENT :
-        return {
-          BORDER : THEME_NEW.BTN_BORDER || "1px solid white",
-          BG_COLOR: THEME_NEW.BTN_ANCENT_BG_COLOR,
-          COLOR: THEME_NEW.BTN_ANCENT_COLOR,
+
+      // not included, once confirm will be removed
+      // case ButtonStyle.ANCENT :
+      //   return {
+      //     BORDER : THEME_NEW.BTN_BORDER || "1px solid white",
+      //     BG_COLOR: THEME_NEW.BTN_ANCENT_BG_COLOR,
+      //     COLOR: THEME_NEW.BTN_ANCENT_COLOR,
           
-          COLOR_HOVER: THEME_NEW.BTN_ANCENT_COLOR_HOVER,
-          BG_COLOR_HOVER: THEME_NEW.BTN_ANCENT_BG_COLOR_HOVER
-        }
+      //     COLOR_HOVER: THEME_NEW.BTN_ANCENT_COLOR_HOVER,
+      //     BG_COLOR_HOVER: THEME_NEW.BTN_ANCENT_BG_COLOR_HOVER
+      //   }
 
     default:
       return {
@@ -90,9 +92,10 @@ const Button: React.FC<ButtonProps> = ({
   tooltip,
   updates,
   imageUrl,
+  accentColor
 }) => {
   const [tooltipOpen, setTooltipOpen] = React.useState(false);
-  const transparent = ButtonStyle.TRANSPARENT == theme;
+  // const transparent = ButtonStyle.TRANSPARENT == theme;
   const SelectedTheme = getTheme(theme);
 
 
@@ -142,8 +145,8 @@ const Button: React.FC<ButtonProps> = ({
         .button > :global(button) {
           border-radius: 25px;
           background-image: none;
-          border: 1px solid ${SelectedTheme.COLOR};
-          color: ${SelectedTheme.COLOR};
+          border: 1px solid ${accentColor || SelectedTheme.COLOR};
+          color: ${accentColor || SelectedTheme.COLOR};
           background-color: ${SelectedTheme.BG_COLOR};
           padding: 8px 12px;
           line-height:115%;
@@ -151,25 +154,26 @@ const Button: React.FC<ButtonProps> = ({
 
         .button:not(.disabled) > :global(button):hover {
           background-color: ${SelectedTheme.BG_COLOR_HOVER};
-          border: 1px solid ${SelectedTheme.BG_COLOR_HOVER};
-          color: ${SelectedTheme.COLOR_HOVER};
+          border: 1px solid ${accentColor || SelectedTheme.COLOR};
+          color: ${accentColor || SelectedTheme.COLOR_HOVER};
           cursor: pointer;
         }
 
         .button:not(.disabled) > :global(button):active:focus {
-          background-color: ${SelectedTheme.COLOR};
-          border: 2px solid ${SelectedTheme.COLOR};
+          background-color: ${SelectedTheme.BG_COLOR};
+          border: 2px solid ${accentColor || SelectedTheme.COLOR};
           color: ${SelectedTheme.COLOR};
         }
         
         .button:not(.disabled) > :global(button):hover .icon {
-          color: ${SelectedTheme.COLOR};
+          color: ${accentColor || SelectedTheme.COLOR};
         }
         
         .button.disabled > :global(button:hover) {
           background-image: none;
           background-color: ${SelectedTheme.BG_COLOR};
-          border-color: ${SelectedTheme.COLOR};
+          border-color: ${accentColor || SelectedTheme.COLOR};
+          opacity: .4;
         }
 
         .disabled .updates {
@@ -202,7 +206,7 @@ const Button: React.FC<ButtonProps> = ({
           right: -5px;
           top: -5px;
           text-align: center;
-          color: ${transparent ? "white" : ''};
+          color: ${true ? "white" : ''};
           font-size: 14px;
           line-height: 20px;
           font-weight: bold;
@@ -234,7 +238,8 @@ export interface ButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   color?: string;
-  theme?: string;
+  theme?: ButtonStyle;
   updates?: number | boolean;
-  badge?: number
+  badge?: number,
+  accentColor?: string
 }

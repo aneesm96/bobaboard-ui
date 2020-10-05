@@ -16,9 +16,10 @@ export const SimpleButton = () => {
         <Button theme={ButtonStyle.DARK}>Dark button</Button>
         <Button theme={ButtonStyle.DARK} icon={faCoffee}>Dark button icon</Button>
         <Button theme={ButtonStyle.DARK} icon={faCoffee} disabled={true}>Dark button icon</Button>
-        <Button theme={'dark'} imageUrl={mamoru} compact updates={5}>
+        <Button theme={ButtonStyle.DARK} imageUrl={mamoru} compact updates={5}>
           Dark with image
         </Button>
+
       </div>
 
       <div>
@@ -26,6 +27,21 @@ export const SimpleButton = () => {
         <Button theme={ButtonStyle.LIGHT} icon={faCoffee}>primary button icon</Button>
         <Button theme={ButtonStyle.LIGHT} icon={faCoffee} disabled={true}>primary button icon</Button>
         <Button theme={ButtonStyle.LIGHT} imageUrl={mamoru} compact updates={5}>
+          primary with image
+        </Button>
+
+       
+      </div>
+
+      <div>
+          <Button theme={ButtonStyle.LIGHT} accentColor={"blue"}>Accent Button</Button>
+          <Button theme={ButtonStyle.DARK} accentColor={"yellow"}>
+          Accent Button
+        </Button>
+        <Button theme={ButtonStyle.DARK} disabled accentColor={"yellow"}>
+          Accent Button
+        </Button>
+        <Button theme={ButtonStyle.LIGHT} accentColor={"green"} imageUrl={mamoru} compact updates={5}>
           primary with image
         </Button>
       </div>
